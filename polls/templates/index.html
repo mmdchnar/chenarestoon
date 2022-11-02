@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-US">
+{% load static %}
+<head>
+
+<title>Welcome to my site</title>
+<link rel="icon" href="{% static 'polls/images/favicon.ico' %}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body style="background-color:purple;text-align: center;">
+
+<h1 style="color:orange;">Welcome to my site!</h1>
+<p title="Hello!" style="color: gray;">Nice to meet you!</p>
+
+<a href="/polls" style="color: coral;font-size:20px;font-family:Verdana;" title="Polls App">Go to Polls app</a>
+<br>
+<a href="/admin" style="color: coral;font-size:20px;" title="Admin Page">Go to administrator page</a>
+
+<br><br>
+<hr>
+<img src="{% static 'polls/images/favicon.ico' %}" title="Favicon">
+
+</body>
+</html>

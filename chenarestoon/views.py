@@ -1,7 +1,8 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+
+
 
 def index(req):
-    return HttpResponse('''
-<p><b>Welcome to my site!</b></p>
-<p><a href="/polls">Go to polls!</a></p>''')
+    return render(req, 'index.html')
 

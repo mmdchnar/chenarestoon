@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-q3!j4ed1kd#n&xju0)pegs2^&^3!b$n_w9_&6_6^4ya%w-bo(-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chenarestoon.herokuapp.com', 'localhost']
-
+ALLOWED_HOSTS = ['chenarestoon.herokuapp.com', 'localhost','*']
 
 # Application definition
 
@@ -56,7 +55,7 @@ ROOT_URLCONF = 'chenarestoon.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
@@ -119,12 +118,12 @@ USE_TZ = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-STATIC_URL = '/static/'
-STATIC_FILE_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = '/polls/static/'
+STATIC_FILE_ROOT = os.path.join(BASE_DIR, "polls/static")
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "polls/static"),
 )
-STATIC_ROOT = os.path.join(BASE_DIR, "static/assets")
+STATIC_ROOT = os.path.join(BASE_DIR, "polls/static/assets")
 
 
 # Default primary key field type
