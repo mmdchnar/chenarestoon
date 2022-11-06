@@ -11,10 +11,27 @@
 <body style="background-color: purple;">
 
 <ul style="color:white;">
-    {% for file in files %}
-        <li><a href="/polls/static/files/{{ file }}/" style="color:chartreuse;text-decoration: none;">{{ file }}</a></li>
-    {% endfor %}
+    {% if files %}
+        {% for file in files %}
+            <li><a href="/polls/static/files/{{ file }}" style="color:chartreuse;text-decoration: none;">/{{ file }}</a></li>
+        {% endfor %}
+    {% else %}
+        <p>No files here.</p>
+    {% endif %}
 </ul>
+
+
+<hr>
+<h3 style="color: coral;">Upload File</h3>
+<form action="{% url 'files' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="file">Filename:</label>
+    <input type="file" name="file" id="file" /> 
+    <p><input type="submit" value="Upload" /></p>
+</form>
+
+<hr>
+<img src="{% static 'polls/images/dl-favicon.ico' %}">
 
 </body>
 </html>

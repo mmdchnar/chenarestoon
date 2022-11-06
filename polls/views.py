@@ -1,5 +1,6 @@
-from os import walk
-from .models import Question, Choice
+from os import walk, remove, path
+from .models import Question, Choice, File
+from .forms import UploadFileForm
  
 from django.urls import reverse
 from django.views import generic
@@ -37,12 +38,46 @@ class ResultsView(generic.DetailView):
 
 
 def files(req):
+    
     files = []
-    files_and_dirs = list(walk('polls/static/files'))
+    files_and_dirs = walk('polls/static/files')
     for dir in files_and_dirs:
         for file in dir[2]:
-            files.append((dir[0] + '/')[18:] + file)
-        
+            files.append(dir[0][18:] + file)
+    files.sort(key=str.lower)
+
+    if req.method == 'POST':
+        form = UploadFileForm(req.POST, req.FILES)
+        if form.is_valid():
+            file = File(file=req.FILES['file'])
+            file.save()
+            for i in list(walk('polls/media'))[0][2]:
+                if not path.exists('polls/static/files/' + i):
+                    open('polls/static/files/' + i, 'wb').write(open('polls/media/' + i, 'rb').read())
+                    remove('polls/media/' + i)
+                else:
+                    counter = 1
+                    if '.' in i: 
+                        temp = i.split('.')
+                        temp_1 = i.replace('.' + temp[-1], '')
+
+                        while path.exists('polls/static/files/' + temp_1 + '_' + str(counter) + '.' + temp[-1]):
+                            counter += 1
+
+                        open('polls/static/files/' + temp_1 + '_' + str(counter) + '.' + temp[-1],
+                             'wb').write(open('polls/media/' + i, 'rb').read())
+                    else:
+                        while path.exists('polls/static/files/' + i + '_' + str(counter)):
+                            counter += 1
+
+                        open('polls/static/files/' + i + '_' + str(counter),
+                             'wb').write(open('polls/media/' + i, 'rb').read())
+
+                    remove('polls/media/' + i)
+
+            return HttpResponseRedirect(reverse('files'))
+    else:
+        form = UploadFileForm()
 
     return render(req, 'polls/files.html', {'files': files})
 
