@@ -25,8 +25,8 @@
 <h3 style="color: coral;">Upload File</h3>
 <form action="{% url 'files' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <label for="file">Filename:</label>
-    <input type="file" name="file" id="file" /> 
+    <label for="file" style="color: aqua;">Select file:</label>
+    <input type="file" name="file" id="file" style="color: aqua;" /> 
     <p><input type="submit" value="Upload" /></p>
 </form>
 
