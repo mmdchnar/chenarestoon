@@ -19,8 +19,8 @@ from django.urls import path, include
 from . import views
 from polls.views import files
 
-handler404 = 'polls.views.page_not_found'
-handler500 = 'polls.views.server_error'
+# handler404 = 'polls.views.page_not_found'
+# handler500 = 'polls.views.server_error'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
