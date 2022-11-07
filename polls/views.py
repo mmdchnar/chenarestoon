@@ -95,3 +95,11 @@ def vote(req, question_id):
 
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
+
+def page_not_found(req, ex):
+    return render(req, 'polls/404.html')
+
+
+def server_error(req):
+    return render(req, 'polls/404.html')
+
