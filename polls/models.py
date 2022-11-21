@@ -5,6 +5,15 @@ from django.contrib import admin
 from django.utils import timezone
 
 
+class Chat(models.Model):
+    name = models.CharField(max_length=200)
+    message = models.TextField()
+    date = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return self.name
+
+
 class File(models.Model):
     file = models.FileField()
 
