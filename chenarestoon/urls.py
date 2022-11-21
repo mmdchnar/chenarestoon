@@ -18,8 +18,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404, handler500
 from django.urls import path, include
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 from . import views
-from polls.views import files
+from polls.views import files, chat
 
 # handler404 = 'polls.views.page_not_found'
 # handler500 = 'polls.views.server_error'
@@ -27,6 +29,8 @@ from polls.views import files
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('polls/images/favicon.ico'))),
     path('polls/', include('polls.urls')),
     path('dl/', files, name='files'),
+    path('chat', chat, name='chat'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

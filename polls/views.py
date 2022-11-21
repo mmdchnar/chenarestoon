@@ -1,7 +1,7 @@
 from os import walk, remove, path
-from .models import Question, Choice, File
+from .models import Question, Choice, File, Chat
 from .forms import UploadFileForm
- 
+
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -94,6 +94,26 @@ def vote(req, question_id):
         selected_choice.save()
 
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+def chat(req):
+    if req.method == 'POST':
+        if 'message' in dict(req.POST.items()):
+            name = req.COOKIES.get('name')
+            if name:
+                msg = Chat(name=name, message=req.POST['message'])
+                msg.save()
+                return HttpResponseRedirect('chat')
+            else:
+                return render(req, 'polls/name.html')
+        elif 'name' in dict(req.POST):
+            res = HttpResponseRedirect('chat')
+            res.set_cookie('name', req.POST['name'])
+            return res
+    
+    else:
+        msgs = Chat.objects.all()
+        return render(req, 'polls/chat.html', {'msgs': msgs})
 
 
 def page_not_found(req, ex):
