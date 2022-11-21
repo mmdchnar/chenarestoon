@@ -97,19 +97,25 @@ def vote(req, question_id):
 
 
 def chat(req):
-    if req.method == 'POST':
+    name = req.COOKIES.get('name')
+
+    if not name:
+        return render(req, 'polls/name.html')
+
+    elif req.method == 'POST':
+
         if 'message' in dict(req.POST.items()):
-            name = req.COOKIES.get('name')
-            if name:
-                msg = Chat(name=name, message=req.POST['message'])
-                msg.save()
-                return HttpResponseRedirect('chat')
-            else:
-                return render(req, 'polls/name.html')
+            msg = Chat(name=name, message=req.POST['message'])
+            msg.save()
+            return HttpResponseRedirect('chat')
+
         elif 'name' in dict(req.POST):
             res = HttpResponseRedirect('chat')
             res.set_cookie('name', req.POST['name'])
             return res
+        
+        else:
+            return HttpResponseRedirect('chat')
     
     else:
         msgs = Chat.objects.all()
