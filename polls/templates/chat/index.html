@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Chenar Chat</title>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="{% static 'chat/style.css' %}">
+
+</head>
+
+<body>
+  {% if not name %}
+  <div id="login-div" style="background: url({% static 'chat/black.png' %});">
+    <form id="login-form" action="" method="post" style="background: url({% static 'chat/white.png' %});">
+      <h2 class="login-font">Login Form</h2>
+      <div class="container">
+        {% csrf_token %}
+        <label class="login-font" for="uname"><b>Username</b></label>
+        <input id="name-entry" type="text" placeholder="Enter Username" name="name" required>
+        <button id="login-btn" type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+  <!-- partial:index.partial.html -->
+  <div class="menu">
+    <a href="/" class="back"><i class="fa fa-angle-left"></i>
+      <img src="{% static 'polls/images/favicon.ico' %}" draggable="false" /></a>
+    <div class="name">Chenar Chat</div>
+    <div class="members">Your name: {{ name }}</div>
+  </div>
+
+  <ol class="chat">
+    <li class="other">
+      <div class="msg">
+        <div class="user">Site<span class="range admin">Admin</span></div>
+        <p>Welcome to my Chat! </p>
+      </div>
+    </li>
+    {% for msg in msgs %}
+    {% if msg.name == name %}
+    <li class="self">
+      <div class="msg">
+        {% else %}
+    <li class="other">
+      <div class="msg">
+        <div class="user">{{ msg.name }}</div>
+        {% endif %}
+        <p>{{ msg.message }}</p>
+        <time>{{ msg.date.hour }}:{{ msg.date.minute }}</time>
+      </div>
+    </li>
+    {% endfor %}
+
+    <div class="typezone">
+      <form action="" method="post">
+        {% csrf_token %}
+        <textarea type="text" name="message" placeholder="Write a message..."></textarea>
+        <input type="submit" class="send" value="" style="background-image: url({% static 'chat/send.png' %});" />
+      </form>
+    </div>
+    <!-- partial -->
+    <a href="">
+    <div id="refresh" style="background-image: url({% static 'chat/refresh.png' %});"></div>
+    </a>
+
+
+</body>
+
+</html>
