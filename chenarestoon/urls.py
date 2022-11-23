@@ -21,7 +21,7 @@ from django.urls import path, include
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from . import views
-from polls.views import files, chat
+from polls.views import files, chat, chat_logout
 
 # handler404 = 'polls.views.page_not_found'
 # handler500 = 'polls.views.server_error'
@@ -33,4 +33,5 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('dl/', files, name='files'),
     path('chat', chat, name='chat'),
+    path('chat/logout', chat_logout, name='chat_logout'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
