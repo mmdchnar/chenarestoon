@@ -120,6 +120,12 @@ def chat(req):
     return render(req, 'chat/index.html', {'msgs': msgs, 'name': name})
 
 
+def chat_logout(req):
+    res = HttpResponseRedirect(reverse('chat'))
+    res.delete_cookie('name')
+    return res
+
+
 def page_not_found(req, ex):
     return render(req, 'polls/404.html')
 
