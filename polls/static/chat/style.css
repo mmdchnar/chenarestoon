@@ -23,7 +23,7 @@ body {
     right: 10%;
 }
 
-#refresh {
+#logout {
     position: fixed;
     display: block;
     bottom: 0px;
@@ -37,7 +37,7 @@ body {
     cursor: pointer;
 }
 
-#refresh:active {
+#logout:active {
     opacity: 0.9;
 }
 
