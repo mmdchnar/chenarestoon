@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q3!j4ed1kd#n&xju0)pegs2^&^3!b$n_w9_&6_6^4ya%w-bo(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['chenarestoon.herokuapp.com', 'localhost','*']
 
@@ -118,12 +118,13 @@ USE_TZ = True
 
 MEDIA_URL = 'polls/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "polls/media")
-STATIC_URL = '/polls/static/'
-STATIC_FILE_ROOT = os.path.join(BASE_DIR, "polls/static")
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "polls/static"),
-)
-STATIC_ROOT = os.path.join(BASE_DIR, "polls/static/assets")
+STATIC_URL = ''
+
+if DEBUG:
+    STATIC_FILE_ROOT = os.path.join(BASE_DIR, "polls/static")
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, "polls/static"),)
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, "polls/static/")
 
 
 # Default primary key field type
