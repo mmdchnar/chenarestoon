@@ -15,12 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf import settings
-from django.conf.urls.static import static
 from django.views.static import serve
 from django.conf.urls import handler404, handler500
 from django.urls import path, include, re_path
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.views.generic.base import RedirectView
 from . import views
 from polls.views import files, chat, chat_logout
 
@@ -34,5 +31,5 @@ urlpatterns = [
     path('dl/', files, name='files'),
     path('chat', chat, name='chat'),
     path('chat/logout', chat_logout, name='chat_logout'),
-    re_path(r'^(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     ]
