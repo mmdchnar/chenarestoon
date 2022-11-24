@@ -118,7 +118,7 @@ USE_TZ = True
 
 MEDIA_URL = 'polls/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "polls/media")
-STATIC_URL = ''
+STATIC_URL = '/static/'
 
 if DEBUG:
     STATIC_FILE_ROOT = os.path.join(BASE_DIR, "polls/static")
